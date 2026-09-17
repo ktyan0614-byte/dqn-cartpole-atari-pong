@@ -60,6 +60,15 @@ Combines four independent improvements on top of Task 2's baseline:
 - **Dueling Architecture** — the Q-function is decomposed into a state-value stream `V(s)` and an advantage stream `A(s,a)`, improving estimation stability in states where action choice has little effect.
 Also adopts the standard Atari preprocessing stack (no-op reset, frame-skip + max-pool over 4 frames, episodic-life termination, fire-on-reset, reward clipping) following the CleanRL / Nature DQN convention.
 
+## Training Curves
+
+Greedy evaluation reward vs. environment steps, logged via Weights & Biases (evaluated every 20 episodes).
+
+| Task 1 — CartPole-v1 (Vanilla DQN) | Task 2 — Pong-v5 (Vanilla DQN) | Task 3 — Pong-v5 (Enhanced DQN) |
+|:---:|:---:|:---:|
+| ![Task 1 training curve](assets/task1_training_curve.png) | ![Task 2 training curve](assets/task2_training_curve.png) | ![Task 3 training curve](assets/task3_training_curve.png) |
+| Converges to a perfect 500/500 by ~75K steps, after `epsilon-decay` and buffer-size tuning. | Steady climb from −21 to ~15.8, plateauing after ~1.5M steps. | Reaches positive reward by ~600K steps and ~15 by 1M — visibly steeper than Task 2 over the same range. |
+
 ## Results
 
 ### Sample efficiency: Enhanced DQN (Task 3) vs. Vanilla DQN (Task 2), evaluated over 20 seeds

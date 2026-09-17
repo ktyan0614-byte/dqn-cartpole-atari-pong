@@ -2,8 +2,12 @@
 
 Implementation and systematic experimental analysis of Deep Q-Network (DQN) and its major extensions, evaluated on `CartPole-v1` and Atari `Pong-v5`. Built for the **Deep Learning (535518)** course at **National Yang Ming Chiao Tung University (NYCU)**, taken as a cross-institution enrollment student from **National Cheng Kung University (NCKU)**.
 
-<p align="center"><img src="assets/pong_demo.gif" alt="Enhanced DQN agent (green paddle, right) playing Pong-v5, going on an unanswered scoring run against the built-in opponent" width="420"></p>
-<p align="center"><sub>Greedy rollout of the Task 3 agent (<code>checkpoints/LAB5_H24111269_task3_best.pt</code>, seed 0) — an unanswered scoring run from 10–5 to 17–5, auto-selected as the highest-scoring window of a full episode.</sub></p>
+<p align="center">
+  <img src="assets/cartpole_demo.gif" alt="Task 1 Vanilla DQN agent balancing CartPole-v1" width="360">
+  &nbsp;&nbsp;
+  <img src="assets/pong_demo.gif" alt="Task 3 Enhanced DQN agent (green paddle, right) rallying on Pong-v5" width="220">
+</p>
+<p align="center"><sub>Left: Task 1 agent (<code>checkpoints/LAB5_H24111269_task1.pt</code>) balancing CartPole-v1 to the max episode length. Right: Task 3 Enhanced DQN agent (<code>checkpoints/LAB5_H24111269_task3_best.pt</code>, green paddle) rallying against the built-in Pong-v5 opponent — Task 2's vanilla DQN plays the same environment, so only the stronger Task 3 agent is shown here.</sub></p>
 
 > 中文摘要:本專案實作 DQN 及其進階變體(Double DQN、Prioritized Experience Replay、Multi-step Return、Dueling Architecture),並在 CartPole-v1 與 Atari Pong-v5 環境上進行系統性的樣本效率(sample efficiency)分析與消融實驗(ablation study)。完整方法說明與圖表請見 [`docs/LAB5_H24111269_report.pdf`](docs/LAB5_H24111269_report.pdf)。
 
@@ -41,7 +45,7 @@ Implementation and systematic experimental analysis of Deep Q-Network (DQN) and 
 │   ├── LAB5_H24111269_task1.pt        # Task 1 best model (500/500)
 │   ├── LAB5_H24111269_task2.pt        # Task 2 best model (15.80)
 │   └── LAB5_H24111269_task3_best.pt   # Task 3 best model (17.35)
-├── assets/                   # Training-curve plots and demo GIF used in this README
+├── assets/                   # Training-curve plots and demo GIFs used in this README
 ├── docs/
 │   └── LAB5_H24111269_report.pdf      # Full lab report: derivations, training curves, ablations
 └── requirements.txt
@@ -124,9 +128,11 @@ python test_model_task2.py --model_path ../checkpoints/LAB5_H24111269_task2.pt
 python test_model_task3.py --model_path ../checkpoints/LAB5_H24111269_task3_best.pt
 cd ..
 
-# Regenerate the demo GIF above (auto-picks the highest-scoring window of an episode)
+# Render a Pong gameplay GIF from a checkpoint (auto-picks the highest-scoring window of an episode)
 python scripts/record_demo.py --seed 0
 ```
+
+The `pong_demo.gif` and `cartpole_demo.gif` shown above are screen recordings of the actual trained agents (clipped with ezgif); `scripts/record_demo.py` is provided to render an equivalent Pong clip programmatically from any checkpoint.
 
 Training was logged with [Weights & Biases](https://wandb.ai); pass `--wandb-run-name <name>` to any training script to tag a run, or set `WANDB_MODE=disabled` to run offline.
 

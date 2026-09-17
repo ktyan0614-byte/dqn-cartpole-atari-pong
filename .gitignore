@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# training artifacts (not tracked; regenerate via scripts/)
+results_task*/
+wandb/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/

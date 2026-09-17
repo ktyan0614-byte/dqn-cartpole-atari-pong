@@ -2,6 +2,9 @@
 
 Implementation and systematic experimental analysis of Deep Q-Network (DQN) and its major extensions, evaluated on `CartPole-v1` and Atari `Pong-v5`. Built for the **Deep Learning (535518)** course at **National Yang Ming Chiao Tung University (NYCU)**, taken as a cross-institution enrollment student from **National Cheng Kung University (NCKU)**.
 
+<p align="center"><img src="assets/pong_demo.gif" alt="Enhanced DQN agent (green paddle, right) playing Pong-v5, going on an unanswered scoring run against the built-in opponent" width="420"></p>
+<p align="center"><sub>Greedy rollout of the Task 3 agent (<code>checkpoints/LAB5_H24111269_task3_best.pt</code>, seed 0) — an unanswered scoring run from 10–5 to 17–5, auto-selected as the highest-scoring window of a full episode.</sub></p>
+
 > 中文摘要:本專案實作 DQN 及其進階變體(Double DQN、Prioritized Experience Replay、Multi-step Return、Dueling Architecture),並在 CartPole-v1 與 Atari Pong-v5 環境上進行系統性的樣本效率(sample efficiency)分析與消融實驗(ablation study)。完整方法說明與圖表請見 [`docs/LAB5_H24111269_report.pdf`](docs/LAB5_H24111269_report.pdf)。
 
 ## Highlights
@@ -32,17 +35,19 @@ Implementation and systematic experimental analysis of Deep Q-Network (DQN) and 
 ├── scripts/
 │   ├── train_task1.sh        # Reference hyperparameters used for the reported results
 │   ├── train_task2.sh
-│   └── train_task3.sh
+│   ├── train_task3.sh
+│   └── record_demo.py        # Renders a greedy rollout GIF from a trained checkpoint
 ├── checkpoints/
 │   ├── LAB5_H24111269_task1.pt        # Task 1 best model (500/500)
 │   ├── LAB5_H24111269_task2.pt        # Task 2 best model (15.80)
 │   └── LAB5_H24111269_task3_best.pt   # Task 3 best model (17.35)
+├── assets/                   # Training-curve plots and demo GIF used in this README
 ├── docs/
 │   └── LAB5_H24111269_report.pdf      # Full lab report: derivations, training curves, ablations
 └── requirements.txt
 ```
 
-Intermediate milestone checkpoints (600K / 1M / 1.5M / 2M / 2.5M env steps) and the recorded demo video are omitted to keep the repository lightweight; they can be regenerated with `scripts/train_task3.sh` (milestones are saved automatically, see `enhanced_dqn.py`).
+Intermediate milestone checkpoints (600K / 1M / 1.5M / 2M / 2.5M env steps) are omitted to keep the repository lightweight; they can be regenerated with `scripts/train_task3.sh` (milestones are saved automatically, see `enhanced_dqn.py`).
 
 ## Method
 
@@ -117,6 +122,10 @@ cd src
 python test_model_task1.py --model_path ../checkpoints/LAB5_H24111269_task1.pt
 python test_model_task2.py --model_path ../checkpoints/LAB5_H24111269_task2.pt
 python test_model_task3.py --model_path ../checkpoints/LAB5_H24111269_task3_best.pt
+cd ..
+
+# Regenerate the demo GIF above (auto-picks the highest-scoring window of an episode)
+python scripts/record_demo.py --seed 0
 ```
 
 Training was logged with [Weights & Biases](https://wandb.ai); pass `--wandb-run-name <name>` to any training script to tag a run, or set `WANDB_MODE=disabled` to run offline.
